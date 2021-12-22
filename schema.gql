@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Cloth {
-  id: ID!
+  _id: ID!
 
   """Cloth name"""
   name: String!
@@ -23,11 +23,13 @@ type Cloth {
 
 type Query {
   findAllClothes: [Cloth!]!
-  findClothById(id: String!): Cloth!
+  findClothById(_id: String!): Cloth!
 }
 
 type Mutation {
   createCloth(createClothData: CreateClothInput!): Cloth!
+  removeClothById(clothIdToRemove: DeleteClothArgs!): String!
+  patchClothById(clothDataToPatch: ClothDataToPatch!, clothIdToPatch: PatchClothArgs!): Cloth!
 }
 
 input CreateClothInput {
@@ -36,4 +38,20 @@ input CreateClothInput {
   unitWeight: Int!
   unitPrice: Int!
   category: String!
+}
+
+input DeleteClothArgs {
+  _id: String!
+}
+
+input ClothDataToPatch {
+  name: String
+  description: String
+  unitWeight: Int
+  unitPrice: Int
+  category: String
+}
+
+input PatchClothArgs {
+  _id: String!
 }

@@ -1,22 +1,22 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { Document } from 'mongoose'
 
 export type ClothDocument = Cloth & Document
 
-@Schema()
+@Schema({collection: 'clothes'})
 export class Cloth {
   @Prop()
-  id: string;
+  _id: string
   @Prop()
-  name: string;
+  name: string
   @Prop()
-  description: string;
+  description: string
   @Prop()
-  unitWeight: number;
+  unitWeight: number
   @Prop()
-  unitPrice: number;
+  unitPrice: number
   @Prop()
-  category: string; // TODO References to Categotry Object
+  category: string // TODO References to Categotry Object
 }
 
 export const ClothSchema = SchemaFactory.createForClass(Cloth)

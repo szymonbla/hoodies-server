@@ -1,19 +1,19 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql'
 
 @InputType()
 export class CreateClothInput {
   @Field()
-  name: string;
+  name: string
 
-  @Field()
-  description: string;
-
-  @Field(() => Int)
-  unitWeight: number;
+  @Field() // <--- GraphQL type
+  description: string // <--- TypeScript type
 
   @Field(() => Int)
-  unitPrice: number;
+  unitWeight: number
+
+  @Field(() => Int)
+  unitPrice: number
 
   @Field()
-  category: string; // TODO References to Categotry Object
+  category: string // TODO References to Categotry Object
 }
