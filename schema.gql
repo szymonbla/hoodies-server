@@ -2,6 +2,38 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Cloth {
+  id: ID!
+
+  """Cloth name"""
+  name: String!
+
+  """Cloth description"""
+  description: String!
+
+  """Cloth unit weight"""
+  unitWeight: Int!
+
+  """Cloth unit price"""
+  unitPrice: Int!
+
+  """Cloth category"""
+  category: String!
+}
+
 type Query {
-  addNewCloth: String!
+  findAllClothes: [Cloth!]!
+  findClothById(id: String!): Cloth!
+}
+
+type Mutation {
+  createCloth(createClothData: CreateClothInput!): Cloth!
+}
+
+input CreateClothInput {
+  name: String!
+  description: String!
+  unitWeight: Int!
+  unitPrice: Int!
+  category: String!
 }
