@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cloth {
+  _id: ID!
+
+  """Cloth name"""
+  name: String!
+
+  """Cloth description"""
+  description: String!
+
+  """Cloth unit weight"""
+  unitWeight: Int!
+
+  """Cloth unit price"""
+  unitPrice: Int!
+
+  """Cloth category"""
+  category: String!
+}
+
+type Query {
+  findAllClothes: [Cloth!]!
+  findClothById(_id: String!): Cloth!
+}
+
+type Mutation {
+  createCloth(createClothData: CreateClothInput!): Cloth!
+  removeClothById(clothIdToRemove: DeleteClothArgs!): String!
+  patchClothById(clothDataToPatch: ClothDataToPatch!, clothIdToPatch: PatchClothArgs!): Cloth!
+}
+
+input CreateClothInput {
+  name: String!
+  description: String!
+  unitWeight: Int!
+  unitPrice: Int!
+  category: String!
+}
+
+input DeleteClothArgs {
+  _id: String!
+}
+
+input ClothDataToPatch {
+  name: String
+  description: String
+  unitWeight: Int
+  unitPrice: Int
+  category: String
+}
+
+input PatchClothArgs {
+  _id: String!
+}
