@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { AppController } from './app.controller';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './app.service';
 import ClothesModule from './clothes/clothes.module';
 
@@ -10,8 +10,8 @@ import ClothesModule from './clothes/clothes.module';
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/'),
   ],
-  controllers: [AppController],
   providers: [AppService],
 })
 export default class AppModule {}
