@@ -26,13 +26,6 @@ type Cloth {
   categoryId: Category!
 }
 
-type OrderStatus {
-  _id: ID!
-
-  """Order status name"""
-  orderStatusName: String!
-}
-
 input CategoryInput {
   _id: ID!
 
@@ -45,7 +38,6 @@ type Query {
   findClothById(_id: String!): Cloth!
   getCategoryById(_id: String!): Category!
   getAllCategories: [Category!]!
-  getAllOrderStatuses: [OrderStatus!]!
 }
 
 type Mutation {

@@ -4,12 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { AppService } from './app.service'
 import CategoriesModule from 'categories/categories.module'
 import ClothesModule from './clothes/clothes.module'
-import OrderStatusModule from 'orderStatus/orderStatus.module'
+
 @Module({
   imports: [
     ClothesModule,
     CategoriesModule,
-    OrderStatusModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql'
     }),
