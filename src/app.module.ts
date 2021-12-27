@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AppService } from './app.service'
+import CategoriesModule from 'categories/categories.module'
 import ClothesModule from './clothes/clothes.module'
 
 @Module({
   imports: [
     ClothesModule,
+    CategoriesModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql'
     }),

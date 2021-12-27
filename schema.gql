@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  _id: ID!
+
+  """Category name"""
+  categoryName: String!
+}
+
 type Cloth {
   _id: ID!
 
@@ -24,12 +31,16 @@ type Cloth {
 type Query {
   findAllClothes: [Cloth!]!
   findClothById(_id: String!): Cloth!
+  getCategoryById(_id: String!): Category!
+  getAllCategories: [Category!]!
 }
 
 type Mutation {
   createCloth(createClothData: CreateClothInput!): Cloth!
   removeClothById(clothIdToRemove: DeleteClothArgs!): String!
   patchClothById(clothDataToPatch: ClothDataToPatch!, clothIdToPatch: PatchClothArgs!): Cloth!
+  createCategory(createCategoryData: CreateCategoryInput!): Category!
+  removeCategoryById(categoryIdToRemove: DeleteCategoryInput!): Category!
 }
 
 input CreateClothInput {
@@ -53,5 +64,13 @@ input ClothDataToPatch {
 }
 
 input PatchClothArgs {
+  _id: String!
+}
+
+input CreateCategoryInput {
+  categoryName: String!
+}
+
+input DeleteCategoryInput {
   _id: String!
 }
