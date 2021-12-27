@@ -1,4 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
+import { Category } from 'categories/models/category.model'
 
 @InputType()
 export class CreateClothInput {
@@ -14,6 +15,6 @@ export class CreateClothInput {
   @Field(() => Int)
   unitPrice: number
 
-  @Field()
-  category: string // TODO References to Categotry Object
+  @Field(() => Category)
+  categoryId: Category
 }

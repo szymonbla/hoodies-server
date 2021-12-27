@@ -23,9 +23,14 @@ type Cloth {
 
   """Cloth unit price"""
   unitPrice: Int!
+  categoryId: Category!
+}
 
-  """Cloth category"""
-  category: String!
+input CategoryInput {
+  _id: ID!
+
+  """Category name"""
+  categoryName: String!
 }
 
 type Query {
@@ -48,7 +53,7 @@ input CreateClothInput {
   description: String!
   unitWeight: Int!
   unitPrice: Int!
-  category: String!
+  categoryId: CategoryInput!
 }
 
 input DeleteClothArgs {
@@ -60,7 +65,7 @@ input ClothDataToPatch {
   description: String
   unitWeight: Int
   unitPrice: Int
-  category: String
+  category: CategoryInput
 }
 
 input PatchClothArgs {

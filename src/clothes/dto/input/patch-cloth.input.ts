@@ -1,4 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
+import { Category } from 'categories/models/category.model'
 import { IsNotEmpty } from 'class-validator'
 
 @InputType()
@@ -15,8 +16,8 @@ export class ClothDataToPatch {
   @Field(() => Int, { nullable: true })
   unitPrice?: number
 
-  @Field({ nullable: true })
-  category?: string // TODO References to Categotry Object
+  @Field(() => Category, { nullable: true })
+  category?: Category
 }
 
 @InputType()

@@ -1,6 +1,7 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
+@InputType("CategoryInput")
 export class Category {
   @Field(() => ID)
   _id: string

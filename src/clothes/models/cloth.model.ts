@@ -1,4 +1,5 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql'
+import { Category } from 'categories/models/category.model'
 
 @ObjectType()
 export class Cloth {
@@ -17,6 +18,6 @@ export class Cloth {
   @Field(() => Int, { description: 'Cloth unit price' })
   unitPrice: number
 
-  @Field({ description: 'Cloth category' })
-  category: string // TODO References to Categotry Object
+  @Field(() => Category)
+  categoryId: Category
 }
