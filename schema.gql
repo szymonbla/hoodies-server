@@ -40,6 +40,13 @@ input CategoryInput {
   categoryName: String!
 }
 
+input orderStatusInput {
+  _id: ID!
+
+  """Order status name"""
+  orderStatusName: String!
+}
+
 type Query {
   findAllClothes: [Cloth!]!
   findClothById(_id: String!): Cloth!
