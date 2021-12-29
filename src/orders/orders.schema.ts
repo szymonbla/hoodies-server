@@ -13,17 +13,23 @@ class OrderedProduct {
   amount: string
 }
 
+export const OrderedProductSchema = SchemaFactory.createForClass(OrderedProduct)
+
+
 export type OrderDocument = Order & Document
 @Schema()
 export class Order {
   @Prop(() => ID)
   _id: string
 
-  @Prop({ type: Date })
+  @Prop({ type: Date, default: Date.now })
   confirmedDate: Date
 
   @Prop({ type: Types.ObjectId, ref: 'OrderStatus' })
   orderStatus: OrderStatus
+
+  @Prop()
+  userName: string
 
   @Prop()
   email: string
@@ -31,8 +37,8 @@ export class Order {
   @Prop()
   phoneNumber: string
 
-  @Prop({ type: OrderedProduct, default: [] }) // lack of array ISSUE
-  orderedProductArray: OrderedProduct[]
+  @Prop({ type: [OrderedProductSchema] }) // lack of array ISSUE
+  orderedProductArray: [OrderedProduct]
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order)
