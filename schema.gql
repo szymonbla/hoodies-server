@@ -33,11 +33,60 @@ type OrderStatus {
   orderStatusName: String!
 }
 
+type OrderedProducts {
+  product: Cloth!
+  amount: Int!
+}
+
+type Order {
+  _id: ID!
+  confirmedDate: DateTime
+  orderStatus: OrderStatus!
+  userName: String!
+  email: String!
+  phoneNumber: String!
+  orderedProductArray: [OrderedProducts!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 input CategoryInput {
   _id: ID!
 
   """Category name"""
   categoryName: String!
+}
+
+input ClothInput {
+  _id: ID!
+
+  """Cloth name"""
+  name: String!
+
+  """Cloth description"""
+  description: String!
+
+  """Cloth unit weight"""
+  unitWeight: Int!
+
+  """Cloth unit price"""
+  unitPrice: Int!
+  categoryId: CategoryInput!
+}
+
+input orderStatusInput {
+  _id: ID!
+
+  """Order status name"""
+  orderStatusName: String!
+}
+
+input OrderProductsInput {
+  product: ClothInput!
+  amount: Int!
 }
 
 type Query {
@@ -54,6 +103,7 @@ type Mutation {
   patchClothById(clothDataToPatch: ClothDataToPatch!, clothIdToPatch: PatchClothArgs!): Cloth!
   createCategory(createCategoryData: CreateCategoryInput!): Category!
   removeCategoryById(categoryIdToRemove: DeleteCategoryInput!): Category!
+  createOrder(orderData: CreateOrderInput!): Order!
 }
 
 input CreateClothInput {
@@ -86,4 +136,13 @@ input CreateCategoryInput {
 
 input DeleteCategoryInput {
   _id: String!
+}
+
+input CreateOrderInput {
+  confirmedDate: DateTime
+  orderStatus: orderStatusInput!
+  userName: String!
+  email: String!
+  phoneNumber: String!
+  orderedProductArray: [OrderProductsInput!]!
 }

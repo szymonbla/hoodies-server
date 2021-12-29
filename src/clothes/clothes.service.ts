@@ -12,8 +12,8 @@ import { ClothDataToPatch, PatchClothArgs } from './dto/input/patch-cloth.input'
 
 @Injectable()
 export class ClothesService {
-  constructor(@InjectModel(Cloth.name) private clothModel: Model<ClothDocument>) {}
 
+  constructor(@InjectModel(Cloth.name) private clothModel: Model<ClothDocument>) {}
   async createCloth(createClothData: CreateClothInput): Promise<Cloth> {
     const createdCloth = new this.clothModel({
       _id: uuidv4(),
