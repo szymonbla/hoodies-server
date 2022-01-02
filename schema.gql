@@ -95,6 +95,14 @@ type Query {
   getCategoryById(_id: String!): Category!
   getAllCategories: [Category!]!
   getAllOrderStatuses: [OrderStatus!]!
+  getAllOrdersForUser(userName: String!): [Order!]!
+  getOrderById(_id: String!): Order!
+  getAllOrders: [Order!]!
+  getByStatusOrder(orderStatus: orderId!): [Order!]!
+}
+
+input orderId {
+  _id: ID!
 }
 
 type Mutation {
@@ -104,6 +112,7 @@ type Mutation {
   createCategory(createCategoryData: CreateCategoryInput!): Category!
   removeCategoryById(categoryIdToRemove: DeleteCategoryInput!): Category!
   createOrder(orderData: CreateOrderInput!): Order!
+  removeOrder(orderIdToRemove: RemoveOrderArgs!): Order!
 }
 
 input CreateClothInput {
@@ -140,9 +149,13 @@ input DeleteCategoryInput {
 
 input CreateOrderInput {
   confirmedDate: DateTime
-  orderStatus: orderStatusInput!
+  orderStatus: orderId!
   userName: String!
   email: String!
   phoneNumber: String!
   orderedProductArray: [OrderProductsInput!]!
+}
+
+input RemoveOrderArgs {
+  _id: ID!
 }
