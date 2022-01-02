@@ -37,7 +37,7 @@ export class Order {
   @Prop()
   phoneNumber: string
 
-  @Prop({ type: [OrderedProductSchema] }) // lack of array ISSUE
+  @Prop({ type: [OrderedProductSchema] })
   orderedProductArray: [OrderedProduct]
 }
 

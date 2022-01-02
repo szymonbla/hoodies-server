@@ -1,7 +1,7 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
 import { IsEmail } from 'class-validator'
 import { Cloth } from 'clothes/models/cloth.model'
-import { OrderStatus } from 'orderStatus/models/orderStatus.model'
+import { OrderIDStatus } from 'orderStatus/models/orderStatus.model'
 
 @ObjectType()
 @InputType('OrderProductsInput')
@@ -18,8 +18,8 @@ export class CreateOrderInput {
   @Field({ nullable: true })
   confirmedDate: Date
 
-  @Field(() => OrderStatus)
-  orderStatus: OrderStatus
+  @Field(() => OrderIDStatus)
+  orderStatus: OrderIDStatus
 
   @Field()
   userName: string

@@ -6,6 +6,9 @@ import { Order } from './models/orders.model'
 import { OrderDocument } from './orders.schema'
 import { v4 as uuidv4 } from 'uuid'
 import { RemoveOrderArgs } from './dto/input/remove-order'
+import { GetOrderByIdArgs } from './dto/args/getId-order.args'
+import { GetForUserArgs } from './dto/args/getForUser-order.args'
+import { GetByStatusArgs } from './dto/args/getByStatus-args'
 
 @Injectable()
 export class OrdersService {
@@ -19,19 +22,23 @@ export class OrdersService {
     return this.orderModel.deleteOne(removeOrderArgs)
   }
 
-  async getOrderById(): Promise<Order> {
-    return
+  async getOrderById(getByIdArgs: GetOrderByIdArgs): Promise<Order> {
+    return this.orderModel.findById(getByIdArgs)
   }
 
-  async getAllOrdersForUser(): Promise<Order[]> {
-    return
+  async getAllOrdersForUser(getForUserArgs: GetForUserArgs): Promise<Order[]> {
+    return this.orderModel.find(getForUserArgs).exec()
   }
 
   async getAllOrders(): Promise<Order[]> {
-    return
+    return this.orderModel.find().exec()
   }
 
-  async patchOrder(): Promise<Order> {
-    return
+  async getByStatusOrder(getByStatusArgs: GetByStatusArgs): Promise<Order[]> {
+    return this.orderModel.find(getByStatusArgs).exec()
   }
+
+  // async patchOrder(): Promise<Order> {
+  //   return
+  // }
 }
