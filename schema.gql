@@ -120,7 +120,11 @@ input CreateClothInput {
   description: String!
   unitWeight: Int!
   unitPrice: Int!
-  categoryId: CategoryInput!
+  categoryId: CategoryInputId!
+}
+
+input CategoryInputId {
+  _id: ID!
 }
 
 input DeleteClothArgs {
@@ -132,7 +136,7 @@ input ClothDataToPatch {
   description: String
   unitWeight: Int
   unitPrice: Int
-  category: CategoryInput
+  category: CategoryInputId
 }
 
 input PatchClothArgs {

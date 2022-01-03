@@ -1,8 +1,10 @@
 import { Field, InputType } from "@nestjs/graphql";
+import { IsNotEmpty } from "class-validator";
 
 
 @InputType()
 export class DeleteCategoryInput {
-    @Field()
-    _id: string
+  @Field()
+  @IsNotEmpty()
+  _id: string
 }
