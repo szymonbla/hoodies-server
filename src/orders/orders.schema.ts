@@ -25,7 +25,7 @@ export class Order {
   @Prop({ type: Date, default: Date.now })
   confirmedDate: Date
 
-  @Prop({ type: Types.ObjectId, ref: 'OrderStatus' })
+  @Prop({ type: Types.ObjectId, ref: OrderStatus.name })
   orderStatus: OrderStatus
 
   @Prop()

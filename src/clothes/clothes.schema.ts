@@ -16,7 +16,7 @@ export class Cloth {
   unitWeight: number
   @Prop()
   unitPrice: number
-  @Prop({ type: Types.ObjectId, ref: 'Category' })
+  @Prop({ type: Types.ObjectId, ref: Category.name })
   categoryId: Category
 }
 

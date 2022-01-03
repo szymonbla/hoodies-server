@@ -5,13 +5,27 @@ import { GetClothArgs } from './dto/args/get-cloth.args'
 import { CreateClothInput } from './dto/input/create-cloth.input'
 import { Cloth } from './models/cloth.model'
 import { ClothDataToPatch, PatchClothArgs } from './dto/input/patch-cloth.input'
+import { Logger, NotFoundException } from '@nestjs/common'
+
+interface returnProps {
+  created?: Cloth
+  success: boolean
+  message: string
+}
 @Resolver(() => Cloth)
 export class ClothesResolver {
-  constructor(private clothesService: ClothesService) {}
+  logger: Logger
+  constructor(private clothesService: ClothesService) {
+    this.logger = new Logger()
+  }
 
   @Mutation(() => Cloth)
   async createCloth(@Args('createClothData') createClothData: CreateClothInput): Promise<Cloth> {
-    return await this.clothesService.createCloth(createClothData)
+    try {
+      return await this.clothesService.createCloth(createClothData)
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
   @Query(() => [Cloth]) // <--- What will the query return?
@@ -33,8 +47,7 @@ export class ClothesResolver {
   async patchClothById(
     @Args('clothIdToPatch') patchClothArgs: PatchClothArgs,
     @Args('clothDataToPatch') clothDataToPatch: ClothDataToPatch
-  ): Promise<any> {
-    console.log(await this.clothesService.checkIfUserExist(patchClothArgs))
+  ): Promise<Cloth> {
     return await this.clothesService.patchCloth(patchClothArgs, clothDataToPatch)
   }
 }

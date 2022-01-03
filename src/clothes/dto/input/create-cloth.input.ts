@@ -1,5 +1,5 @@
 import { Field, FieldMiddleware, InputType, Int, MiddlewareContext, NextFn } from '@nestjs/graphql'
-import { Category } from 'categories/models/category.model'
+import { CategoryId } from 'categories/models/category.model'
 import { IsNotEmpty, IsPositive } from 'class-validator'
 
 
@@ -24,7 +24,7 @@ export class CreateClothInput {
   @IsNotEmpty()
   unitPrice: number
 
-  @Field(() => Category)
+  @Field(() => CategoryId)
   @IsNotEmpty()
-  categoryId: Category
+  categoryId: CategoryId
 }

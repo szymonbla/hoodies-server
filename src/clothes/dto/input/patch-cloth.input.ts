@@ -1,11 +1,11 @@
 import { Field, InputType, Int } from '@nestjs/graphql'
-import { Category } from 'categories/models/category.model'
-import { IsNotEmpty, IsOptional } from 'class-validator'
+import { CategoryId } from 'categories/models/category.model'
+import { IsNotEmpty, IsOptional, IsPositive, IsString } from 'class-validator'
 
 @InputType()
 export class ClothDataToPatch {
   @Field({ nullable: true })
-  @IsNotEmpty()
+  @IsOptional()
   name?: string
 
   @Field({ nullable: true })
@@ -14,15 +14,17 @@ export class ClothDataToPatch {
 
   @Field(() => Int, { nullable: true })
   @IsOptional()
+  @IsPositive()
   unitWeight?: number
 
   @Field(() => Int, { nullable: true })
   @IsOptional()
+  @IsPositive()
   unitPrice?: number
 
-  @Field(() => Category, { nullable: true })
+  @Field(() => CategoryId, { nullable: true })
   @IsOptional()
-  category?: Category
+  category?: CategoryId
 }
 
 @InputType()
