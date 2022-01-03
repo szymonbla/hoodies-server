@@ -1,5 +1,5 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
-import { IsEmail } from 'class-validator'
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator'
 import { Cloth } from 'clothes/models/cloth.model'
 import { OrderIDStatus } from 'orderStatus/models/orderStatus.model'
 
@@ -16,12 +16,15 @@ export class OrderedProducts {
 @InputType()
 export class CreateOrderInput {
   @Field({ nullable: true })
-  confirmedDate: Date
+  @IsOptional()
+  confirmedDate?: Date
 
   @Field(() => OrderIDStatus)
+  @IsNotEmpty()
   orderStatus: OrderIDStatus
 
   @Field()
+  @IsNotEmpty()
   userName: string
 
   @Field()
@@ -29,8 +32,10 @@ export class CreateOrderInput {
   email: string
 
   @Field()
+  @IsNotEmpty()
   phoneNumber: string
 
   @Field(() => [OrderedProducts])
+  @IsNotEmpty()
   orderedProductArray: OrderedProducts[]
 }

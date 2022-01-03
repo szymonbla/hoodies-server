@@ -33,7 +33,8 @@ export class ClothesResolver {
   async patchClothById(
     @Args('clothIdToPatch') patchClothArgs: PatchClothArgs,
     @Args('clothDataToPatch') clothDataToPatch: ClothDataToPatch
-  ): Promise<Cloth> {
-    return this.clothesService.patchCloth(patchClothArgs, clothDataToPatch)
+  ): Promise<any> {
+    console.log(await this.clothesService.checkIfUserExist(patchClothArgs))
+    return await this.clothesService.patchCloth(patchClothArgs, clothDataToPatch)
   }
 }

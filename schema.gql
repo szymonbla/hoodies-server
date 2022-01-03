@@ -13,7 +13,7 @@ type Cloth {
   _id: ID!
 
   """Cloth name"""
-  name: String!
+  name: String
 
   """Cloth description"""
   description: String!
@@ -64,7 +64,7 @@ input ClothInput {
   _id: ID!
 
   """Cloth name"""
-  name: String!
+  name: String
 
   """Cloth description"""
   description: String!

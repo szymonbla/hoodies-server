@@ -7,7 +7,7 @@ export class Cloth {
   @Field(() => ID)
   _id: string
 
-  @Field({ description: 'Cloth name' })
+  @Field({ description: 'Cloth name' , nullable: true })
   name: string
 
   @Field({ description: 'Cloth description' })

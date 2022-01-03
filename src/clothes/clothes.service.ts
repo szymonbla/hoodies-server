@@ -1,5 +1,4 @@
-import { Injectable } from '@nestjs/common'
-import ClothesModule from './clothes.module'
+import { Injectable, Logger } from '@nestjs/common'
 import { Cloth } from './models/cloth.model'
 import { v4 as uuidv4 } from 'uuid'
 import { CreateClothInput } from './dto/input/create-cloth.input'
@@ -12,8 +11,16 @@ import { ClothDataToPatch, PatchClothArgs } from './dto/input/patch-cloth.input'
 
 @Injectable()
 export class ClothesService {
-
   constructor(@InjectModel(Cloth.name) private clothModel: Model<ClothDocument>) {}
+
+  async checkIfUserExist(createUserDTO: PatchClothArgs): Promise<any> {
+    const user = await this.clothModel.findOne({ _id: createUserDTO })
+    if (user.id.length != 0) {
+      return true
+    }
+    throw new Error('false')
+  }
+
   async createCloth(createClothData: CreateClothInput): Promise<Cloth> {
     const createdCloth = new this.clothModel({
       _id: uuidv4(),
@@ -35,7 +42,12 @@ export class ClothesService {
     return this.clothModel.deleteOne(deleteClothArgs)
   }
 
-  async patchCloth(clothIdToPatch: PatchClothArgs, clothDataToPatch: ClothDataToPatch): Promise<Cloth> {
-    return this.clothModel.findByIdAndUpdate(clothIdToPatch, clothDataToPatch)
+  async patchCloth(clothIdToPatch: PatchClothArgs, clothDataToPatch: ClothDataToPatch): Promise<any> {
+    const patchedCloth = this.clothModel.findByIdAndUpdate(clothIdToPatch, clothDataToPatch)
+    const resultOfSearching = this.checkIfUserExist(clothIdToPatch)
+    return {
+      patchedCloth,
+      resultOfSearching
+    }
   }
 }
