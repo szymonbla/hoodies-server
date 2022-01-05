@@ -1,12 +1,17 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { Order } from './models/orders.model'
+import { Cloth, ClothSchema } from 'clothes/clothes.schema'
+import { OrderStatus, OrderStatusSchema } from 'orderStatus/orderStatus.schema'
 import { OrdersResolver } from './order.resolver'
-import { OrderSchema } from './orders.schema'
+import { Order, OrderSchema } from './orders.schema'
 import { OrdersService } from './orders.service'
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+    MongooseModule.forFeature([{ name: Cloth.name, schema: ClothSchema }]),
+    MongooseModule.forFeature([{ name: OrderStatus.name, schema: OrderStatusSchema }])
+  ],
   providers: [OrdersResolver, OrdersService]
 })
 export default class OrdersModule {}

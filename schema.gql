@@ -13,7 +13,7 @@ type Cloth {
   _id: ID!
 
   """Cloth name"""
-  name: String
+  name: String!
 
   """Cloth description"""
   description: String!
@@ -24,6 +24,10 @@ type Cloth {
   """Cloth unit price"""
   unitPrice: Int!
   categoryId: Category!
+}
+
+type ClothId {
+  _id: ID!
 }
 
 type OrderStatus {
@@ -64,7 +68,7 @@ input ClothInput {
   _id: ID!
 
   """Cloth name"""
-  name: String
+  name: String!
 
   """Cloth description"""
   description: String!
@@ -75,6 +79,10 @@ input ClothInput {
   """Cloth unit price"""
   unitPrice: Int!
   categoryId: CategoryInput!
+}
+
+input ClothInputId {
+  _id: ID!
 }
 
 input orderStatusInput {
@@ -157,7 +165,12 @@ input CreateOrderInput {
   userName: String!
   email: String!
   phoneNumber: String!
-  orderedProductArray: [OrderProductsInput!]!
+  orderedProductArray: [OrderProductIds!]!
+}
+
+input OrderProductIds {
+  productId: ClothInputId!
+  amount: Int!
 }
 
 input RemoveOrderArgs {
