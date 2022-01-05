@@ -1,6 +1,6 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
-import { IsEmail } from 'class-validator'
-import { Cloth } from 'clothes/models/cloth.model'
+import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator'
+import { Cloth, ClothId } from 'clothes/models/cloth.model'
 import { OrderIDStatus } from 'orderStatus/models/orderStatus.model'
 
 @ObjectType()
@@ -13,24 +13,42 @@ export class OrderedProducts {
   amount: string
 }
 
+@ObjectType()
+@InputType('OrderProductIds')
+export class OrderedProductArray {
+  @Field(() => ClothId)
+  productId: ClothId
+
+  @Field(() => Int)
+  amount: number
+}
+
 @InputType()
 export class CreateOrderInput {
   @Field({ nullable: true })
-  confirmedDate: Date
+  @IsOptional()
+  @IsDate()
+  confirmedDate?: Date
 
   @Field(() => OrderIDStatus)
+  @IsNotEmpty()
   orderStatus: OrderIDStatus
 
   @Field()
+  @IsString()
+  @IsNotEmpty()
   userName: string
 
   @Field()
   @IsEmail()
+  @IsString()
   email: string
 
   @Field()
+  @IsNotEmpty()
   phoneNumber: string
 
-  @Field(() => [OrderedProducts])
-  orderedProductArray: OrderedProducts[]
+  @Field(() => [OrderedProductArray])
+  @IsNotEmpty()
+  orderedProductArray: OrderedProductArray[]
 }

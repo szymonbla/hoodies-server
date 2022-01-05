@@ -9,3 +9,11 @@ export class Category {
   @Field({ description: 'Category name' })
   categoryName: string
 }
+
+@ObjectType()
+@InputType('CategoryInputId')
+export class CategoryId {
+  @Field(() => ID)
+  _id: string
+}
+

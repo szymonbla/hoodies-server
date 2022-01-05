@@ -26,6 +26,10 @@ type Cloth {
   categoryId: Category!
 }
 
+type ClothId {
+  _id: ID!
+}
+
 type OrderStatus {
   _id: ID!
 
@@ -77,6 +81,10 @@ input ClothInput {
   categoryId: CategoryInput!
 }
 
+input ClothInputId {
+  _id: ID!
+}
+
 input orderStatusInput {
   _id: ID!
 
@@ -120,7 +128,11 @@ input CreateClothInput {
   description: String!
   unitWeight: Int!
   unitPrice: Int!
-  categoryId: CategoryInput!
+  categoryId: CategoryInputId!
+}
+
+input CategoryInputId {
+  _id: ID!
 }
 
 input DeleteClothArgs {
@@ -132,7 +144,7 @@ input ClothDataToPatch {
   description: String
   unitWeight: Int
   unitPrice: Int
-  category: CategoryInput
+  category: CategoryInputId
 }
 
 input PatchClothArgs {
@@ -153,7 +165,12 @@ input CreateOrderInput {
   userName: String!
   email: String!
   phoneNumber: String!
-  orderedProductArray: [OrderProductsInput!]!
+  orderedProductArray: [OrderProductIds!]!
+}
+
+input OrderProductIds {
+  productId: ClothInputId!
+  amount: Int!
 }
 
 input RemoveOrderArgs {

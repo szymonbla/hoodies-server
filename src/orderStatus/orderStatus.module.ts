@@ -6,6 +6,7 @@ import { OrderStatus, OrderStatusSchema } from './orderStatus.schema'
 
 @Module({
   providers: [OrderStatusServices, OrderStatusResolver],
-  imports: [MongooseModule.forFeature([{ name: OrderStatus.name, schema: OrderStatusSchema }])]
+  imports: [MongooseModule.forFeature([{ name: OrderStatus.name, schema: OrderStatusSchema }])],
+  exports: [MongooseModule.forFeature([{ name: OrderStatus.name, schema: OrderStatusSchema }])]
 })
 export default class OrderStatusModule {}

@@ -6,6 +6,7 @@ import { CategoriesService } from './categories.service'
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }])],
-  providers: [CategoriesResolver, CategoriesService]
+  providers: [CategoriesResolver, CategoriesService],
+  exports: [MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }])]
 })
 export default class CategoriesModule {}

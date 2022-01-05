@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common'
-import { GraphQLModule } from '@nestjs/graphql'
+import { FieldMiddleware, GraphQLModule, MiddlewareContext, NextFn } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AppService } from './app.service'
 import CategoriesModule from 'categories/categories.module'
 import ClothesModule from './clothes/clothes.module'
 import OrderStatusModule from 'orderStatus/orderStatus.module'
 import OrdersModule from 'orders/orders.module'
+
 @Module({
   imports: [
     ClothesModule,

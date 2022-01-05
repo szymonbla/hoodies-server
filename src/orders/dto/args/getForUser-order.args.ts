@@ -1,9 +1,10 @@
 import { ArgsType, Field } from '@nestjs/graphql'
-import { IsString } from 'class-validator'
+import { IsNotEmpty, IsString } from 'class-validator'
 
 @ArgsType()
 export class GetForUserArgs {
   @Field()
   @IsString()
+  @IsNotEmpty()
   userName: string
 }

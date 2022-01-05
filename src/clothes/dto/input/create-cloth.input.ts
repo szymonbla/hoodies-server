@@ -1,20 +1,30 @@
-import { Field, InputType, Int } from '@nestjs/graphql'
-import { Category } from 'categories/models/category.model'
+import { Field, FieldMiddleware, InputType, Int, MiddlewareContext, NextFn } from '@nestjs/graphql'
+import { CategoryId } from 'categories/models/category.model'
+import { IsNotEmpty, IsPositive } from 'class-validator'
+
+
 
 @InputType()
 export class CreateClothInput {
   @Field()
+  @IsNotEmpty()
   name: string
 
   @Field() // <--- GraphQL type
+  @IsNotEmpty() // <--- Generic validation decorator
   description: string // <--- TypeScript type
 
   @Field(() => Int)
+  @IsPositive()
+  @IsNotEmpty()
   unitWeight: number
 
   @Field(() => Int)
+  @IsPositive()
+  @IsNotEmpty()
   unitPrice: number
 
-  @Field(() => Category)
-  categoryId: Category
+  @Field(() => CategoryId)
+  @IsNotEmpty()
+  categoryId: CategoryId
 }
