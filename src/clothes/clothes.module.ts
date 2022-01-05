@@ -10,6 +10,7 @@ import { ClothesService } from './clothes.service'
     MongooseModule.forFeature([{ name: Cloth.name, schema: ClothSchema }]),
     MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }])
   ],
-  providers: [ClothesResolver, ClothesService]
+  providers: [ClothesResolver, ClothesService],
+  exports: [MongooseModule.forFeature([{ name: Cloth.name, schema: ClothSchema }])]
 })
 export default class ClothesModule {}
