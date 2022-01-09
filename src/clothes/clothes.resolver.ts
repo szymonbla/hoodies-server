@@ -14,10 +14,7 @@ interface returnProps {
 }
 @Resolver(() => Cloth)
 export class ClothesResolver {
-  logger: Logger
-  constructor(private clothesService: ClothesService) {
-    this.logger = new Logger()
-  }
+  constructor(private clothesService: ClothesService) {}
 
   @Mutation(() => Cloth)
   async createCloth(@Args('createClothData') createClothData: CreateClothInput): Promise<Cloth> {

@@ -24,12 +24,11 @@ export class OrdersService {
     try {
       const { orderStatus } = createOrderData
       const { orderedProductArray } = createOrderData
-      const [productId] = orderedProductArray
       const orderStatusId = orderStatus._id
       orderStatusId.toString()
+      console.log(OrderStatus.name)
       const ifOrderStatusExists = await isInputDataAlreadyExists({ orderStatusId }, this.orderStatusModel)
       const ifProductExists = await isInputDataAlreadyExists({ orderedProductArray }, this.clothModel)
-      console.log(ifProductExists)
       if (ifOrderStatusExists.length === 0) {
         throw new NotFoundException('Order status does not exist')
       } else if (ifProductExists === 0) {
@@ -47,11 +46,11 @@ export class OrdersService {
   }
 
   async getOrderById(getByIdArgs: GetOrderByIdArgs): Promise<Order> {
-    return (await this.orderModel.findById(getByIdArgs).exec()).populate('orderStatus')
+    return await this.orderModel.findById(getByIdArgs).populate('orderStatus')
   }
 
   async getAllOrdersForUser(getForUserArgs: GetForUserArgs): Promise<Order[]> {
-    return this.orderModel.find(getForUserArgs).exec()
+    return this.orderModel.find(getForUserArgs).populate({ path: 'orderStatus' }).exec()
   }
 
   async getAllOrders(): Promise<Order[]> {

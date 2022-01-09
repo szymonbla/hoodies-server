@@ -20,15 +20,12 @@ export type OrderDocument = Order & Document
 @Schema()
 export class Order {
   @Prop(() => ID)
-  @IsNotEmpty()
   _id: string
 
   @Prop({ type: Date, default: Date.now })
-  @IsNotEmpty()
   confirmedDate: Date
 
   @Prop({ type: Types.ObjectId, ref: OrderStatus.name })
-  @IsNotEmpty()
   orderStatus: OrderStatus
 
   @Prop()
@@ -37,7 +34,6 @@ export class Order {
 
   @Prop()
   @IsEmail()
-  @IsNotEmpty()
   email: string
 
   @Prop()
