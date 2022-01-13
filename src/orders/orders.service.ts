@@ -34,7 +34,14 @@ export class OrdersService {
       } else if (ifProductExists === 0) {
         throw new NotFoundException('Given product id does not exist')
       } else {
-        return (await this.orderModel.create({ _id: uuidv4(), ...createOrderData })).populate('orderStatus')
+        return await (
+          await (
+            await this.orderModel.create({
+              _id: uuidv4(),
+              ...createOrderData
+            })
+          ).populate({ path: 'orderStatus' })
+        ).populate({ path: 'orderedProductArray', model: 'Cloth' })
       }
     } catch (error) {
       throw new NotFoundException(error)
@@ -46,19 +53,44 @@ export class OrdersService {
   }
 
   async getOrderById(getByIdArgs: GetOrderByIdArgs): Promise<Order> {
-    return await this.orderModel.findById(getByIdArgs).populate('orderStatus').exec()
+    try {
+      const searchedOrderId = await this.orderModel.findById(getByIdArgs).populate({ path: 'orderStatus' }).exec()
+      if (searchedOrderId) {
+        return searchedOrderId
+      }
+      throw new NotFoundException('The given id does not exist')
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
   async getAllOrdersForUser(getForUserArgs: GetForUserArgs): Promise<Order[]> {
-    return this.orderModel.find(getForUserArgs).populate({ path: 'orderStatus' }).exec()
+    try {
+      const searchedOrderByUser = this.orderModel.find(getForUserArgs).populate({ path: 'orderStatus' }).exec()
+      if (searchedOrderByUser) {
+        return searchedOrderByUser
+      }
+      throw new NotFoundException('The given id does not exist')
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
   async getAllOrders(): Promise<Order[]> {
-    return this.orderModel.find().exec()
+    return this.orderModel.find().populate({ path: 'orderStatus' }).exec()
   }
 
   async getByStatusOrder(getByStatusArgs: GetByStatusArgs): Promise<Order[]> {
-    return this.orderModel.find(getByStatusArgs).exec()
+    try {
+      const searchedOrderByUser = await this.orderModel.find(getByStatusArgs).populate({ path: 'orderStatus' }).exec()
+      if (searchedOrderByUser.length !== 0) {
+        return searchedOrderByUser
+      }
+
+      throw new NotFoundException('The given id does not exist')
+    } catch (error) {
+      throw new NotFoundException(error)
+    }
   }
 
   // async patchOrder(): Promise<Order> {

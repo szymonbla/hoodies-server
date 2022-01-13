@@ -1,4 +1,4 @@
-import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
+import { Field, ID, InputType, Int, ObjectType } from '@nestjs/graphql'
 import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator'
 import { Cloth, ClothId } from 'clothes/models/cloth.model'
 import { OrderIDStatus } from 'orderStatus/models/orderStatus.model'
