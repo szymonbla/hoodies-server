@@ -6,9 +6,10 @@ import CategoriesModule from 'categories/categories.module'
 import ClothesModule from './clothes/clothes.module'
 import OrderStatusModule from 'orderStatus/orderStatus.module'
 import OrdersModule from 'orders/orders.module'
-
+import { ConfigModule } from '@nestjs/config'
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     ClothesModule,
     CategoriesModule,
     OrderStatusModule,

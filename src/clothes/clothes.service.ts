@@ -60,10 +60,10 @@ export class ClothesService {
   async patchCloth(clothIdToPatch: PatchClothArgs, clothDataToPatch: ClothDataToPatch): Promise<Cloth> {
     try {
       const ifclothIdExists = await isInputDataAlreadyExists(clothIdToPatch, this.clothModel)
+      
       console.log(ifclothIdExists)
       console.log(typeof ifclothIdExists)
       if (ifclothIdExists.length === 0) {
-        throw new NotFoundException('The cloth id, which you want to patch, does not exist!')
       }
       return this.clothModel.findByIdAndUpdate(ifclothIdExists, clothDataToPatch, { new: true }).populate('categoryId')
     } catch (error) {

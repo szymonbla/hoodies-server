@@ -1,5 +1,5 @@
 import { Field, ID, InputType, Int, ObjectType } from '@nestjs/graphql'
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, IsString } from 'class-validator'
+import { IsArray, IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsPhoneNumber, IsPositive, IsString, Matches } from 'class-validator'
 import { Cloth, ClothId } from 'clothes/models/cloth.model'
 import { OrderIDStatus } from 'orderStatus/models/orderStatus.model'
 
@@ -10,16 +10,23 @@ export class OrderedProducts {
   product: Cloth
 
   @Field(() => Int)
-  amount: string
+  @IsNotEmpty()
+  @IsString()
+  @IsPositive()
+  amount: number
 }
 
 @ObjectType()
 @InputType('OrderProductIds')
 export class OrderedProductArray {
   @Field(() => ClothId)
-  productId: ClothId
+  @IsNotEmpty()
+  product: ClothId
 
-  @Field(() => Int)
+  @Field(() => Int, { description: 'Amount of product' })
+  @IsNotEmpty()
+  @IsPositive()
+  @Matches('^[1-9][0-9]*$')
   amount: number
 }
 
@@ -46,9 +53,11 @@ export class CreateOrderInput {
 
   @Field()
   @IsNotEmpty()
+  @IsPhoneNumber('PL')
   phoneNumber: string
 
   @Field(() => [OrderedProductArray])
+  @IsArray()
   @IsNotEmpty()
   orderedProductArray: OrderedProductArray[]
 }

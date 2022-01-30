@@ -1,23 +1,19 @@
-import { Int } from '@nestjs/graphql'
+import { ID, Int } from '@nestjs/graphql'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Cloth } from 'clothes/clothes.schema'
 import { OrderStatus } from 'orderStatus/orderStatus.schema'
 import { Document, Types } from 'mongoose'
 
 export type OrderDocument = Order & Document
+export type OrderedProductDocument = OrderedProduct & Document
 
-@Schema()
-class OrderedProduct {
-  @Prop()
-  _id: string
+@Schema({ _id: false })
+export class OrderedProduct {
+  @Prop(() => Int)
+  amount: number
 
   @Prop({ type: Types.ObjectId, ref: Cloth.name })
   product: Cloth
-
-  @Prop(() => Int)
-  amount: string
-  @Prop(() => Int)
-  test: string
 }
 
 export const OrderedProductSchema = SchemaFactory.createForClass(OrderedProduct)
@@ -42,7 +38,7 @@ export class Order {
   @Prop()
   phoneNumber: string
 
-  @Prop({ type: [OrderedProductSchema] })
+  @Prop()
   orderedProductArray: [OrderedProduct]
 }
 

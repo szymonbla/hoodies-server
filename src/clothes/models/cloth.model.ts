@@ -9,9 +9,9 @@ export class Cloth {
   @IsNotEmpty()
   _id: string
 
-  @Field({ description: 'Cloth name' })
+  @Field({ description: 'Cloth name', nullable: true })
   @IsNotEmpty()
-  name: string
+  name?: string
 
   @Field({ description: 'Cloth description' })
   @IsNotEmpty()
