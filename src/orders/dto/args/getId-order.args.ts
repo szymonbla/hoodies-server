@@ -5,6 +5,5 @@ import { IsNotEmpty, IsString } from 'class-validator'
 export class GetOrderByIdArgs {
   @Field()
   @IsNotEmpty()
-  @IsString()
   _id: string
 }

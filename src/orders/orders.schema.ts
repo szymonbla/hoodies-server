@@ -1,52 +1,44 @@
 import { ID, Int } from '@nestjs/graphql'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator'
 import { Cloth } from 'clothes/clothes.schema'
-import { Types } from 'mongoose'
 import { OrderStatus } from 'orderStatus/orderStatus.schema'
+import { Document, Types } from 'mongoose'
 
-@Schema()
-class OrderedProduct {
+export type OrderDocument = Order & Document
+export type OrderedProductDocument = OrderedProduct & Document
+
+@Schema({ _id: false })
+export class OrderedProduct {
+  @Prop(() => Int)
+  amount: number
+
   @Prop({ type: Types.ObjectId, ref: Cloth.name })
   product: Cloth
-
-  @Prop(() => Int)
-  amount: string
 }
 
 export const OrderedProductSchema = SchemaFactory.createForClass(OrderedProduct)
 
-export type OrderDocument = Order & Document
 @Schema()
 export class Order {
-  @Prop(() => ID)
-  @IsNotEmpty()
+  @Prop()
   _id: string
 
   @Prop({ type: Date, default: Date.now })
-  @IsNotEmpty()
   confirmedDate: Date
 
   @Prop({ type: Types.ObjectId, ref: OrderStatus.name })
-  @IsNotEmpty()
   orderStatus: OrderStatus
 
   @Prop()
-  @IsNotEmpty()
   userName: string
 
   @Prop()
-  @IsEmail()
-  @IsNotEmpty()
   email: string
 
   @Prop()
-  @IsPhoneNumber('PL')
-  @IsNotEmpty()
   phoneNumber: string
 
-  @Prop({ type: [OrderedProductSchema] })
-  @IsNotEmpty()
+  @Prop()
   orderedProductArray: [OrderedProduct]
 }
 

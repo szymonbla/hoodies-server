@@ -13,7 +13,7 @@ type Cloth {
   _id: ID!
 
   """Cloth name"""
-  name: String!
+  name: String
 
   """Cloth description"""
   description: String!
@@ -68,7 +68,7 @@ input ClothInput {
   _id: ID!
 
   """Cloth name"""
-  name: String!
+  name: String
 
   """Cloth description"""
   description: String!
@@ -121,6 +121,7 @@ type Mutation {
   removeCategoryById(categoryIdToRemove: DeleteCategoryInput!): Category!
   createOrder(orderData: CreateOrderInput!): Order!
   removeOrder(orderIdToRemove: RemoveOrderArgs!): Order!
+  patchOrderById(orderDataToPatch: OrderDataToPatch!, orderIdToPatch: IdOrderArgs!): Order!
 }
 
 input CreateClothInput {
@@ -169,10 +170,25 @@ input CreateOrderInput {
 }
 
 input OrderProductIds {
-  productId: ClothInputId!
+  product: ClothInputId!
+
+  """Amount of product"""
   amount: Int!
 }
 
 input RemoveOrderArgs {
   _id: ID!
+}
+
+input OrderDataToPatch {
+  confirmedDate: DateTime
+  orderStatus: orderId
+  userName: String
+  email: String
+  phoneNumber: String
+  orderedProductArray: [OrderProductIds!]
+}
+
+input IdOrderArgs {
+  _id: String!
 }
